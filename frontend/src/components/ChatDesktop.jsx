@@ -136,6 +136,13 @@ export default function ChatDesktop({ onActiveChange }) {
                 </button>
               </div>
 
+              <p
+                data-testid="hero-idea-instant-note"
+                className="flex items-center gap-1.5 text-[11px] font-semibold text-ink/45"
+              >
+                <Zap className="h-3.5 w-3.5 shrink-0 text-baby-dark" />
+                Άμεσα αποτελέσματα στην οθόνη σου — δεν στέλνεται κανένα μήνυμα.
+              </p>
             </form>
 
             {/* Results area */}
@@ -156,6 +163,9 @@ export default function ChatDesktop({ onActiveChange }) {
                     <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-mist border border-ink/5 text-baby-dark">
                       <Sparkles className="h-5 w-5" />
                     </span>
+                    <p className="text-xs font-semibold text-ink/60 max-w-[240px] leading-snug">
+                      Δες <span className="text-baby-dark">αμέσως</span> ιδέες — χωρίς να στείλεις τίποτα.
+                    </p>
                   </motion.div>
                 )}
 

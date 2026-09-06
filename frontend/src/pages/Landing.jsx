@@ -13,6 +13,7 @@ import ProblemSolutionSection from "@/sections/ProblemSolutionSection";
 import ServicesSection from "@/sections/ServicesSection";
 import HowItWorksSection from "@/sections/HowItWorksSection";
 import PortfolioSection from "@/sections/PortfolioSection";
+import CompaniesSection from "@/sections/CompaniesSection";
 import FaqSection from "@/sections/FaqSection";
 import ContactSection from "@/sections/ContactSection";
 import { setLenis } from "@/lib/scroll";
@@ -67,6 +68,8 @@ export default function Landing() {
             <PortfolioSection />
           </div>
         </div>
+
+        <CompaniesSection />
 
         <ServicesSection />
         <ScrollReveal>

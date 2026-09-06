@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "sonner";
-import { ArrowUpRight, Mail, Send } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, Mail, Send, X } from "lucide-react";
 import { WordMask, Reveal, Kicker, Magnetic } from "@/components/Reveal";
 
 const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
@@ -12,8 +13,16 @@ const inputCls =
 export default function ContactSection(props) {
   const [form, setForm] = useState({ name: "", email: "", phone: "", company: "", message: "" });
   const [sending, setSending] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
 
   const set = (k) => (e) => setForm({ ...form, [k]: e.target.value });
+
+  // Auto-dismiss the confirmation after a few seconds.
+  useEffect(() => {
+    if (!showSuccess) return;
+    const t = setTimeout(() => setShowSuccess(false), 5000);
+    return () => clearTimeout(t);
+  }, [showSuccess]);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -21,8 +30,8 @@ export default function ContactSection(props) {
     setSending(true);
     try {
       await axios.post(`${API}/contact`, form);
-      toast.success("Το μήνυμα εστάλη — θα επικοινωνήσουμε σύντομα μαζί σου.");
       setForm({ name: "", email: "", phone: "", company: "", message: "" });
+      setShowSuccess(true);
     } catch {
       toast.error("Κάτι πήγε στραβά. Δοκίμασε ξανά.");
     } finally {
@@ -31,6 +40,7 @@ export default function ContactSection(props) {
   };
 
   return (
+    <>
     <section
       id="contact"
       data-testid="contact-section"
@@ -183,5 +193,119 @@ export default function ContactSection(props) {
           </div>
       </div>
     </section>
+
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div
+            data-testid="contact-success-modal"
+            className="fixed inset-0 z-[100] flex items-center justify-center p-4"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {/* Backdrop */}
+            <motion.div
+              data-testid="contact-success-backdrop"
+              onClick={() => setShowSuccess(false)}
+              className="absolute inset-0 bg-ink/50 backdrop-blur-md"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            />
+
+            {/* Card */}
+            <motion.div
+              role="dialog"
+              aria-modal="true"
+              className="relative w-full max-w-sm overflow-hidden rounded-[1.75rem] border border-white/60 bg-white px-8 pb-8 pt-10 text-center shadow-2xl shadow-ink/30"
+              initial={{ opacity: 0, scale: 0.85, y: 24 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 12 }}
+              transition={{ type: "spring", stiffness: 300, damping: 22 }}
+            >
+              {/* decorative glow */}
+              <div className="pointer-events-none absolute -top-20 left-1/2 h-44 w-44 -translate-x-1/2 rounded-full bg-baby/40 blur-3xl" />
+
+              {/* Close */}
+              <button
+                type="button"
+                onClick={() => setShowSuccess(false)}
+                data-testid="contact-success-close"
+                aria-label="Κλείσιμο"
+                className="absolute right-4 top-4 inline-flex h-8 w-8 items-center justify-center rounded-full text-ink/40 transition-colors hover:bg-ink/5 hover:text-ink"
+              >
+                <X className="h-4 w-4" />
+              </button>
+
+              {/* Animated checkmark */}
+              <div className="relative mx-auto flex h-24 w-24 items-center justify-center">
+                {/* expanding ripple rings */}
+                <motion.span
+                  className="absolute inset-0 rounded-full bg-baby/40"
+                  initial={{ scale: 0.6, opacity: 0.7 }}
+                  animate={{ scale: 1.9, opacity: 0 }}
+                  transition={{ duration: 1.4, ease: "easeOut", delay: 0.25, repeat: Infinity, repeatDelay: 0.6 }}
+                />
+                <motion.span
+                  className="absolute inset-0 rounded-full bg-baby/20"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 200, damping: 14, delay: 0.05 }}
+                />
+                <motion.span
+                  className="absolute inset-2 rounded-full bg-gradient-to-br from-baby to-baby-dark shadow-lg shadow-baby/40"
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 220, damping: 15, delay: 0.12 }}
+                />
+                <svg viewBox="0 0 24 24" className="relative h-10 w-10">
+                  <motion.path
+                    d="M4 12.5l5 5L20 6.5"
+                    fill="none"
+                    stroke="white"
+                    strokeWidth={2.6}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.5, ease: "easeOut", delay: 0.38 }}
+                  />
+                </svg>
+              </div>
+
+              <motion.h3
+                className="relative mt-6 font-display text-2xl font-bold tracking-tight text-ink"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3, duration: 0.4 }}
+              >
+                Το μήνυμα εστάλη!
+              </motion.h3>
+              <motion.p
+                className="relative mt-2 text-sm leading-relaxed text-ink/60"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.38, duration: 0.4 }}
+              >
+                Ευχαριστούμε! Θα επικοινωνήσουμε σύντομα μαζί σου — εντός 2 ωρών
+                τις εργάσιμες μέρες.
+              </motion.p>
+
+              <motion.button
+                type="button"
+                onClick={() => setShowSuccess(false)}
+                data-testid="contact-success-ok"
+                className="btn-shine relative mt-7 inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-7 py-3 text-sm font-bold text-white transition-transform duration-300 hover:scale-[1.03]"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.46, duration: 0.4 }}
+              >
+                Τέλεια!
+              </motion.button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

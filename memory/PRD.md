@@ -184,3 +184,5 @@ Build the KNDP agency website. Clean, modern startup look; white + baby blue col
 - 2026-07 (Revert): Aborted the studio colour pass per user request — reverted tailwind.config.js (removed violet/teal/lime tokens), Reveal.jsx Kicker (removed dotClassName), and Companies/Services/Problems/FAQ/HowItWorks/Portfolio sections back to the original white + baby-blue + ink palette. Companies section and contact success modal features retained.
 
 - 2026-07 (Hero idea-generator clarity): Added reassurance microcopy in ChatDesktop.jsx so users know the generator returns results instantly on-screen and does NOT send a message to KNDP. (1) Always-visible line under the input with a Zap icon: "Άμεσα αποτελέσματα στην οθόνη σου — δεν στέλνεται κανένα μήνυμα." (testid hero-idea-instant-note). (2) Idle-state prompt under the sparkles icon: "Δες αμέσως ιδέες — χωρίς να στείλεις τίποτα." Verified desktop + mobile.
+
+- 2026-07 (Hero idea-generator tweak): Removed the under-input line "Άμεσα αποτελέσματα στην οθόνη σου — δεν στέλνεται κανένα μήνυμα." (and its Zap icon) per user request. Idle-state reassurance "Δες αμέσως ιδέες — χωρίς να στείλεις τίποτα." kept.

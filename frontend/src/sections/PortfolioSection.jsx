@@ -45,11 +45,7 @@ const projects = [
   },
 ];
 
-// Cycle bright studio accents for the tag pill on the dark cards.
-const tagColors = ["text-baby", "text-teal", "text-lime", "text-violet"];
-
 function StackCard({ p, i, total, progress, isMobile }) {
-  const tagColor = tagColors[i % tagColors.length];
   // recede so the stack still reads as having depth, not a fade-away.
   const targetScale = 1 - (total - 1 - i) * 0.015;
   // Recede finishes within this card's own slot, so it's already settled by
@@ -95,7 +91,7 @@ function StackCard({ p, i, total, progress, isMobile }) {
 
         {/* Details */}
         <div className={`px-1 md:px-3 ${imageRight ? "md:order-1" : "md:order-2"}`}>
-          <span className={`inline-flex items-center rounded-full bg-white/10 border border-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.15em] ${tagColor}`}>
+          <span className="inline-flex items-center rounded-full bg-white/10 border border-white/15 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.15em] text-baby">
             {p.tag}
           </span>
           <h3 className="mt-3 font-display text-xl md:text-2xl font-medium tracking-tight leading-tight text-white">

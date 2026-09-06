@@ -28,16 +28,8 @@ const steps = [
   },
 ];
 
-// Fresh studio accents per step (full literal class strings for JIT).
-const stepColors = [
-  { chip: "bg-baby/15 text-baby group-hover:bg-baby", num: "text-baby", border: "hover:border-baby/40" },
-  { chip: "bg-lime/15 text-lime group-hover:bg-lime", num: "text-lime", border: "hover:border-lime/40" },
-  { chip: "bg-violet/20 text-violet group-hover:bg-violet", num: "text-violet", border: "hover:border-violet/40" },
-];
-
 function StepCard({ step, index }) {
   const Icon = step.icon;
-  const c = stepColors[index % stepColors.length];
 
   return (
     <motion.div
@@ -49,13 +41,13 @@ function StepCard({ step, index }) {
     >
       <div
         data-testid={`how-step-${index + 1}`}
-        className={`group relative h-full rounded-xl bg-white/5 border border-white/10 p-4 backdrop-blur-sm transition-[background-color,border-color,transform] duration-500 hover:bg-white/10 ${c.border} hover:-translate-y-1`}
+        className="group relative h-full rounded-xl bg-white/5 border border-white/10 p-4 backdrop-blur-sm transition-[background-color,border-color,transform] duration-500 hover:bg-white/10 hover:border-baby/40 hover:-translate-y-1"
       >
         <div className="flex items-center gap-3">
-          <span className={`inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${c.chip} transition-[background-color,color,transform] duration-500 group-hover:text-ink group-hover:-rotate-12`}>
+          <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-baby/15 text-baby transition-[background-color,color,transform] duration-500 group-hover:bg-baby group-hover:text-ink group-hover:-rotate-12">
             <Icon className="h-4 w-4" />
           </span>
-          <span className={`font-display text-2xl md:text-3xl font-light ${c.num} leading-none`}>
+          <span className="font-display text-2xl md:text-3xl font-light text-baby leading-none">
             {step.n}
           </span>
         </div>

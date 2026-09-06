@@ -154,7 +154,7 @@ export const Magnetic = ({ children, strength = 0.3, className = "" }) => {
   );
 };
 
-export const Kicker = ({ children, className = "", light = false, waypoint, dotClassName = "bg-baby" }) => (
+export const Kicker = ({ children, className = "", light = false, waypoint }) => (
   <span
     className={`inline-flex items-center gap-2 text-xs md:text-sm uppercase tracking-[0.25em] font-semibold ${
       light ? "text-white/60" : "text-ink/60"
@@ -162,7 +162,7 @@ export const Kicker = ({ children, className = "", light = false, waypoint, dotC
   >
     <motion.span
       data-scroll-waypoint={waypoint || undefined}
-      className={`h-2 w-2 rounded-full ${dotClassName}`}
+      className="h-2 w-2 rounded-full bg-baby"
       animate={{ scale: [1, 1.5, 1], opacity: [1, 0.6, 1] }}
       transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
     />

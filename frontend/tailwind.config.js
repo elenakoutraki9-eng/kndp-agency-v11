@@ -20,6 +20,21 @@ module.exports = {
           light: '#EAF6FD',
           dark: '#4FB3E3',
         },
+        violet: {
+          DEFAULT: '#8B5CF6',
+          light: '#F3EFFF',
+          dark: '#6D28D9',
+        },
+        teal: {
+          DEFAULT: '#14B8A6',
+          light: '#E4FAF5',
+          dark: '#0F9488',
+        },
+        lime: {
+          DEFAULT: '#84CC16',
+          light: '#F2FADF',
+          dark: '#5E8B12',
+        },
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         card: {

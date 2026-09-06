@@ -43,7 +43,7 @@ export default function ProblemSolutionSection(props) {
       {...props}
       innerClassName="overflow-hidden"
     >
-      <section id="problems" data-testid="problem-solution-section" className="py-12 md:py-16">
+      <section id="problems" data-testid="problem-solution-section" className="py-12 md:py-16 bg-lime-light">
         <div ref={ref} className="mx-auto max-w-7xl px-6 md:px-10">
           {/* Title — fades + slides up first */}
           <div
@@ -54,13 +54,13 @@ export default function ProblemSolutionSection(props) {
               willChange: "opacity, transform",
             }}
           >
-            <Kicker waypoint="problems">Προβλήματα που λύνουμε</Kicker>
+            <Kicker waypoint="problems" dotClassName="bg-lime-dark">Προβλήματα που λύνουμε</Kicker>
             <h2
               data-testid="problem-solution-headline"
               className="mt-3 font-display font-medium tracking-tight text-3xl md:text-5xl"
             >
               Σου ακούγεται{" "}
-              <span className="text-baby-dark italic">γνωστό;</span>
+              <span className="text-lime-dark italic">γνωστό;</span>
             </h2>
           </div>
 
@@ -89,7 +89,7 @@ export default function ProblemSolutionSection(props) {
 
                   {/* Arrow — fades in */}
                   <span
-                    className="hidden md:inline-flex h-8 w-8 items-center justify-center rounded-full bg-baby text-ink"
+                    className="hidden md:inline-flex h-8 w-8 items-center justify-center rounded-full bg-lime text-ink"
                     style={{
                       opacity: inView ? 1 : 0,
                       transition: `opacity ${DURATION}s ${EASE} ${delay}s`,
@@ -115,7 +115,7 @@ export default function ProblemSolutionSection(props) {
                     }}
                   >
                     <div className="flex items-center gap-3 rounded-xl bg-ink text-white p-4 transition-transform duration-500 group-hover:-translate-y-0.5">
-                      <CheckCircle2 className="h-4 w-4 shrink-0 text-baby" />
+                      <CheckCircle2 className="h-4 w-4 shrink-0 text-lime" />
                       <p className="font-semibold text-sm md:text-base">{p.solution}</p>
                     </div>
                   </div>

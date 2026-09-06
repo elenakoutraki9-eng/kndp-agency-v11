@@ -16,14 +16,23 @@ const companies = [
   { name: "Kappa Dental", mono: "KD", line: "Οδοντιατρική κλινική", tag: "Website & ραντεβού" },
 ];
 
+// Cycling studio-palette accents so the row feels colourful & creative.
+const accents = [
+  { grad: "from-baby to-baby-dark", dot: "bg-baby-dark", text: "text-baby-dark", shadow: "shadow-baby/30", ring: "group-hover:ring-baby/50" },
+  { grad: "from-violet to-violet-dark", dot: "bg-violet-dark", text: "text-violet-dark", shadow: "shadow-violet/30", ring: "group-hover:ring-violet/50" },
+  { grad: "from-teal to-teal-dark", dot: "bg-teal-dark", text: "text-teal-dark", shadow: "shadow-teal/30", ring: "group-hover:ring-teal/50" },
+  { grad: "from-lime to-lime-dark", dot: "bg-lime-dark", text: "text-lime-dark", shadow: "shadow-lime/30", ring: "group-hover:ring-lime/50" },
+];
+
 function CompanyCard({ c, i }) {
+  const a = accents[i % accents.length];
   return (
     <div
       data-testid={`company-card-${i}`}
-      className="group relative flex w-[290px] shrink-0 snap-start flex-col rounded-2xl border border-ink/10 bg-white p-6 shadow-xl shadow-ink/5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl hover:shadow-baby/20 md:w-[340px] md:p-7"
+      className="group relative flex w-[290px] shrink-0 snap-start flex-col rounded-2xl border border-ink/10 bg-white p-6 shadow-xl shadow-ink/5 transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl md:w-[340px] md:p-7"
     >
       {/* Logo mark (monogram placeholder) */}
-      <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-baby to-baby-dark font-display text-lg font-bold text-white shadow-lg shadow-baby/30">
+      <div className={`flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br ${a.grad} font-display text-lg font-bold text-white shadow-lg ${a.shadow}`}>
         {c.mono}
       </div>
 
@@ -32,12 +41,12 @@ function CompanyCard({ c, i }) {
       </h3>
       <p className="mt-1.5 text-sm leading-relaxed text-ink/55">{c.line}</p>
 
-      <div className="mt-6 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.15em] text-baby-dark">
-        <span className="h-1.5 w-1.5 rounded-full bg-baby-dark" />
+      <div className={`mt-6 flex items-center gap-1.5 text-[11px] font-bold uppercase tracking-[0.15em] ${a.text}`}>
+        <span className={`h-1.5 w-1.5 rounded-full ${a.dot}`} />
         {c.tag}
       </div>
 
-      <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-baby/0 transition-all duration-300 group-hover:ring-baby/40" />
+      <div className={`pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-transparent transition-all duration-300 ${a.ring}`} />
     </div>
   );
 }
@@ -45,7 +54,7 @@ function CompanyCard({ c, i }) {
 function SectionHeader({ light = false }) {
   return (
     <Reveal>
-      <Kicker waypoint="companies">Συνεργασίες</Kicker>
+      <Kicker waypoint="companies" dotClassName="bg-violet-dark">Συνεργασίες</Kicker>
       <h2
         data-testid="companies-headline"
         className="mt-3 font-display font-medium tracking-tight text-3xl md:text-5xl"
@@ -60,7 +69,7 @@ function SectionHeader({ light = false }) {
       </h2>
       <p className="mt-4 flex max-w-2xl items-center gap-2 text-sm leading-relaxed text-ink/60 md:text-base">
         Επιχειρήσεις κάθε μεγέθους που εμπιστεύτηκαν την KNDP για τα ψηφιακά τους projects.
-        <span className="hidden items-center gap-1 whitespace-nowrap font-semibold text-baby-dark md:inline-flex">
+        <span className="hidden items-center gap-1 whitespace-nowrap font-semibold text-violet-dark md:inline-flex">
           Σύρε <ArrowRight className="h-4 w-4" />
         </span>
       </p>
@@ -108,7 +117,7 @@ export default function CompaniesSection() {
       <section
         id="companies"
         data-testid="companies-section"
-        className="relative bg-paper py-16"
+        className="relative bg-violet-light py-16"
       >
         <div className="mx-auto max-w-7xl px-6">
           <SectionHeader />
@@ -130,7 +139,7 @@ export default function CompaniesSection() {
       id="companies"
       data-testid="companies-section"
       ref={sectionRef}
-      className="relative bg-paper"
+      className="relative bg-violet-light"
       style={{ height: `calc(100vh + ${distance}px)` }}
     >
       <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">

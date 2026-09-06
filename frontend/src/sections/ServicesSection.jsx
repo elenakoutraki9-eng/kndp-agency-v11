@@ -78,19 +78,26 @@ const categories = [
   },
 ];
 
+// Studio-palette accent per category — keeps the section colourful but tidy.
+const catAccent = {
+  customers: { text: "text-baby-dark", soft: "text-baby-dark/80", hover: "hover:shadow-baby/20 hover:border-baby/50" },
+  team: { text: "text-teal-dark", soft: "text-teal-dark/80", hover: "hover:shadow-teal/20 hover:border-teal/50" },
+  operations: { text: "text-violet-dark", soft: "text-violet-dark/80", hover: "hover:shadow-violet/20 hover:border-violet/50" },
+};
+
 export default function ServicesSection() {
   return (
-    <section id="services" data-testid="services-section" className="py-12 md:py-16">
+    <section id="services" data-testid="services-section" className="py-12 md:py-16 bg-teal-light">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
           <Reveal y={24}>
-            <Kicker waypoint="services">Υπηρεσίες</Kicker>
+            <Kicker waypoint="services" dotClassName="bg-teal-dark">Υπηρεσίες</Kicker>
             <h2
               data-testid="services-headline"
               className="mt-3 font-display text-3xl md:text-5xl font-medium tracking-tight max-w-3xl"
             >
               <span className="block">Αν υπάρχει σε μια οθόνη,</span>
               <span className="block">
-                μπορούμε να το <span className="text-baby-dark italic">χτίσουμε.</span>
+                μπορούμε να το <span className="text-teal-dark italic">χτίσουμε.</span>
               </span>
             </h2>
           </Reveal>
@@ -101,10 +108,12 @@ export default function ServicesSection() {
             </p>
           </Reveal>
           <div className="mt-5 space-y-6" data-testid="services-categories">
-            {categories.map((cat) => (
+            {categories.map((cat) => {
+              const ca = catAccent[cat.slug] || catAccent.customers;
+              return (
               <div key={cat.slug} data-testid={`services-category-${cat.slug}`}>
                 <Reveal y={16} duration={0.4}>
-                  <p className="text-sm font-display font-semibold text-baby-dark tracking-tight">
+                  <p className={`text-sm font-display font-semibold ${ca.text} tracking-tight`}>
                     {cat.name}
                   </p>
                 </Reveal>
@@ -113,14 +122,14 @@ export default function ServicesSection() {
                     <Reveal key={s.n} delay={0.05 * i} margin="200px" duration={0.35}>
                       <div
                         data-testid={`service-card-${s.n}`}
-                        className="group h-full flex flex-col rounded-2xl border border-ink/8 bg-white p-4 md:p-5 transition-[transform,box-shadow,border-color] duration-500 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-baby/15 hover:border-baby/50"
+                        className={`group h-full flex flex-col rounded-2xl border border-ink/8 bg-white p-4 md:p-5 transition-[transform,box-shadow,border-color] duration-500 hover:-translate-y-1.5 hover:shadow-xl ${ca.hover}`}
                       >
-                        <span className="font-display text-sm font-light text-baby-dark">{s.n}</span>
+                        <span className={`font-display text-sm font-light ${ca.text}`}>{s.n}</span>
                         <h4 className="mt-1.5 font-display text-lg md:text-xl font-medium tracking-tight">
                           {s.title}
                         </h4>
                         <p className="mt-1.5 text-sm text-ink/60 leading-relaxed flex-1">{s.text}</p>
-                        <p className="mt-2.5 text-xs font-semibold text-baby-dark/80 uppercase tracking-wide">
+                        <p className={`mt-2.5 text-xs font-semibold ${ca.soft} uppercase tracking-wide`}>
                           {s.who}
                         </p>
                       </div>
@@ -128,7 +137,8 @@ export default function ServicesSection() {
                   ))}
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="mt-10 md:mt-12">
